@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dieta da Késs - 30 Dias</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#f5f5f7] text-[#1d1d1f] font-sans min-h-screen pb-28 selection:bg-gray-200">
+
+  <div id="app"></div>
+
+  <script>
+    // Estrutura completa de dados da dieta da Késs (30 Dias)
+    const dietPlan = [
+      {
+        day: 1, type: "MUSCULAÇÃO",
+        meals: [
+          { name: "Café da manhã", items: ["Leite integral: 250 ml", "Neston: 30 g", "Ovos: 2 unidades", "Pão: 60 g", "Fruta: à vontade"] },
+          { name: "Almoço", items: ["Arroz cozido: 150 g", "Feijão cozido: 100 g", "Frango grelhado: 150 g", "Azeite: 5 g", "Salada: à vontade"] },
+          { name: "Lanche", items: ["Açaí: 200 g", "Morango: 100 g", "Neston: 20 g"] },
+          { name: "Jantar", items: ["Frango grelhado: 150 g", "Batata assada/cozida: 200 g", "Salada: à vontade", "Azeite: 5 g"] },
+          { name: "Ceia (se houver fome)", items: ["Leite integral: 200 ml", "Fruta: à vontade"] }
+        ]
+      },
+      {
+        day: 2, type: "MUSCULAÇÃO",
+        meals: [
+          { name: "Café da manhã", items: ["Leite integral: 250 ml", "Neston: 30 g", "Ovos mexidos: 2 unidades", "Pão: 60 g", "Queijo: 30 g", "Fruta: à vontade"] },
+          { name: "Almoço", items: ["Arroz cozido: 150 g", "Feijão cozido: 100 g", "Carne bovina magra: 150 g", "Azeite: 5 g", "Salada: à vontade"] },
+          { name: "Lanche", items: ["Iogurte natural: 170 g", "Morango: 100 g", "Neston: 20 g", "Fruta: à vontade"] },
+          { name: "Jantar", items: ["Frango desfiado: 150 g", "Arroz cozido: 130 g", "Feijão: 80 g", "Salada: à vontade", "Azeite: 5 g"] },
+          { name: "Ceia (se houver fome)", items: ["Leite integral: 200 ml", "Fruta: à vontade"] }
+        ]
+      },
+      {
+        day: 3, type: "MUSCULAÇÃO",
+        meals: [
+          { name: "Café da manhã", items: ["Leite integral: 250 ml", "Neston: 30 g", "Ovos: 2 unidades", "Pão: 60 g", "Queijo: 30 g", "Fruta: à vontade"] },
+          { name: "Almoço", items: ["Arroz cozido: 150 g", "Feijão cozido: 100 g", "Frango grelhado: 160 g", "Azeite: 5 g", "Salada: à vontade"] },
+          { name: "Lanche", items: ["Açaí: 200 g", "Morango: 100 g", "Neston: 20 g", "Fruta: à vontade"] },
+          { name: "Jantar", items: ["Peixe grelhado: 160 g", "Batata cozida: 200 g", "Salada: à vontade", "Azeite: 5 g"] },
+          { name: "Ceia (se houver fome)", items: ["Leite integral: 200 ml", "Fruta: à vontade"] }
+        ]
+      },
+      {
+        day: 4, type: "MUSCULAÇÃO",
+        meals: [
+          { name: "Café da manhã", items: ["Leite integral: 250 ml", "Neston: 30 g", "Ovos mexidos: 2 unidades", "Pão: 60 g", "Queijo: 30 g", "Fruta: à vontade"] },
+          { name: "Almoço", items: ["Arroz cozido: 150 g", "Feijão cozido: 100 g", "Frango grelhado: 150 g", "Azeite: 5 g", "Salada: à vontade"] },
+          { name: "Lanche", items: ["Leite integral: 250 ml", "Morango: 150 g", "Neston: 30 g", "Fruta: à vontade"] },
+          { name: "Jantar", items: ["Omelete: 3 ovos", "Arroz cozido: 120 g", "Feijão: 80 g", "Salada: à vontade", "Azeite: 5 g"] },
+          { name: "Ceia (se houver fome)", items: ["Leite integral: 200 ml", "Fruta: à vontade"] }
+        ]
+      },
+      {
+        day: 5, type: "NATAÇÃO",
+        meals: [
+          { name: "Café da manhã", items: ["Leite integral: 250 ml", "Neston: 30 g", "Ovos: 2 unidades", "Pão: 60 g", "Queijo: 30 g", "Fruta: à vontade"] },
+          { name: "Almoço", items: ["Arroz cozido: 160 g", "Feijão cozido: 100 g", "Frango grelhado: 160 g", "Azeite: 5 g", "Salada: à vontade"] },
+          { name: "Lanche (Antes da natação)", items: ["Iogurte natural: 170 g", "Neston: 20 g", "Fruta: à vontade"] },
+          { name: "Jantar (Depois da natação)", items: ["Frango grelhado: 160 g", "Batata: 220 g", "Salada: à vontade", "Azeite: 5 g"] },
+          { name: "Ceia (se houver fome)", items: ["Leite integral: 200 ml", "Fruta: à vontade"] }
+        ]
+      },
+      {
+        day: 6, type: "NATAÇÃO",
+        meals: [
+          { name: "Café da manhã", items: ["Leite integral: 250 ml", "Neston: 30 g", "Ovos: 2 unidades", "Pão: 60 g", "Fruta: à vontade"] },
+          { name: "Almoço", items: ["Arroz cozido: 160 g", "Feijão cozido: 100 g", "Carne bovina magra: 150 g", "Azeite: 5 g", "Salada: à vontade"] },
+          { name: "Lanche", items: ["Açaí: 200 g", "Morango: 100 g", "Neston: 20 g", "Fruta: à vontade"] },
+          { name: "Jantar", items: ["Frango desfiado: 160 g", "Arroz cozido: 150 g", "Feijão: 80 g", "Salada: à vontade", "Azeite: 5 g"] },
+          { name: "Ceia (se houver fome)", items: ["Leite integral: 200 ml", "Fruta: à vontade"] }
+        ]
+      },
+      {
+        day: 7, type: "DESCANSO",
+        meals: [
+          { name: "Café da manhã", items: ["Leite integral: 250 ml", "Neston: 30 g", "Ovos: 2 unidades", "Pão: 60 g", "Queijo: 30 g", "Fruta: à vontade"] },
+          { name: "Almoço", items: ["Arroz cozido: 150 g", "Feijão cozido: 100 g", "Frango assado/grelhado: 150 g", "Azeite: 5 g", "Salada: à vontade"] },
+          { name: "Lanche", items: ["Salada de frutas: 1 porção", "Iogurte natural: 170 g", "Neston: 20 g"] },
+          { name: "Jantar", items: ["Omelete: 3 ovos", "Batata assada: 180 g", "Salada: à vontade", "Azeite: 5 g"] },
+          { name: "Ceia (se houver fome)", items: ["Leite integral: 200 ml", "Fruta: à vontade"] }
+        ]
+      },
+      {
+        day: 8, type: "MUSCULAÇÃO",
+        meals: [
+          { name: "Café da manhã", items: ["Leite integral: 250 ml", "Neston: 30 g", "Ovos: 2 unidades", "Pão: 60 g", "Queijo: 30 g", "Fruta: à vontade"] },
+          { name: "Almoço", items: ["Arroz cozido: 150 g", "Feijão cozido: 100 g", "Frango grelhado: 150 g", "Azeite: 5 g", "Salada: à vontade"] },
+          { name: "Lanche", items: ["Açaí: 200 g", "Morango: 100 g", "Neston: 20 g"] },
+          { name: "Jantar", items: ["Carne bovina magra: 150 g", "Batata cozida: 200 g", "Salada: à vontade", "Azeite: 5 g"] },
+          { name: "Ceia (se houver fome)", items: ["Leite integral: 200 ml", "Fruta: à vontade"] }
+        ]
+      },
+      {
+        day: 9, type: "MUSCULAÇÃO",
+        meals: [
+          { name: "Café da manhã", items: ["Leite integral: 250 ml", "Neston: 30 g", "Ovos mexidos: 2 unidades", "Pão: 60 g", "Fruta: à vontade"] },
+          { name: "Almoço", items: ["Arroz cozido: 150 g", "Feijão cozido: 100 g", "Carne bovina magra: 150 g", "Azeite: 5 g", "Salada: à vontade"] },
+          { name: "Lanche", items: ["Iogurte natural: 170 g", "Neston: 20 g", "Morango: 100 g", "Fruta: à vontade"] },
+          { name: "Jantar", items: ["Frango desfiado: 150 g", "Macarrão cozido: 150 g", "Molho de tomate: 80 g", "Salada: à vontade"] },
+          { name: "Ceia (se houver fome)", items: ["Leite integral: 200 ml", "Fruta: à vontade"] }
+        ]
+      },
+      {
+        day: 10, type: "MUSCULAÇÃO",
+        meals: [
+          { name: "Café da manhã", items: ["Leite integral: 250 ml", "Neston: 30 g", "Ovos: 2 unidades", "Pão: 60 g", "Queijo: 30 g", "Fruta: à vontade"] },
+          { name: "Almoço", items: ["Arroz cozido: 150 g", "Feijão cozido: 100 g", "Peixe grelhado: 160 g", "Azeite: 5 g", "Salada: à vontade"] },
+          { name: "Lanche", items: ["Açaí: 200 g", "Morango: 100 g", "Neston: 20 g", "Fruta: à vontade"] },
+          { name: "Jantar", items: ["Frango grelhado: 150 g", "Mandioca cozida: 180 g", "Salada: à vontade", "Azeite: 5 g"] },
+          { name: "Ceia (se houver fome)", items: ["Leite integral: 200 ml", "Fruta: à vontade"] }
+        ]
+      },
+      {
+        day: 11, type: "MUSCULAÇÃO",
+        meals: [
+          { name: "Café da manhã", items: ["Leite integral: 250 ml", "Neston: 30 g", "Ovos mexidos: 2 unidades", "Pão: 60 g", "Queijo: 30 g", "Fruta: à vontade"] },
+          { name: "Almoço", items: ["Arroz cozido: 150 g", "Feijão: 100 g", "Frango grelhado: 160 g", "Azeite: 5 g", "Salada: à vontade"] },
+          { name: "Lanche", items: ["Iogurte natural: 170 g", "Neston: 20 g", "Morango: 100 g"] },
+          { name: "Jantar", items: ["Omelete: 3 ovos", "Arroz cozido: 130 g", "Feijão: 80 g", "Salada: à vontade", "Azeite: 5 g"] },
+          { name: "Ceia (se houver fome)", items: ["Leite integral: 200 ml", "Fruta: à vontade"] }
+        ]
+      },
+      {
+        day: 12, type: "NATAÇÃO",
+        meals: [
+          { name: "Café da manhã", items: ["Leite integral: 250 ml", "Neston: 30 g", "Ovos: 2 unidades", "Pão: 60 g", "Queijo: 30 g", "Fruta: à vontade"] },
+          { name: "Almoço", items: ["Arroz cozido: 160 g", "Feijão: 100 g", "Frango grelhado: 160 g", "Azeite: 5 g", "Salada: à vontade"] },
+          { name: "Lanche (Antes da natação)", items: ["Iogurte natural: 170 g", "Neston: 20 g", "Fruta: à vontade"] },
+          { name: "Jantar (Depois da natação)", items: ["Peixe grelhado: 160 g", "Batata assada: 220 g", "Salada: à vontade", "Azeite: 5 g"] },
+          { name: "Ceia (se houver fome)", items: ["Leite integral: 200 ml", "Fruta: à vontade"] }
+        ]
+      },
+      {
+        day: 13, type: "NATAÇÃO",
+        meals: [
+          { name: "Café da manhã", items: ["Leite integral: 250 ml", "Neston: 30 g", "Ovos: 2 unidades", "Pão: 60 g", "Fruta: à vontade"] },
+          { name: "Almoço", items: ["Arroz cozido: 160 g", "Feijão: 100 g", "Carne bovina magra: 150 g", "Azeite: 5 g", "Salada: à vontade"] },
+          { name: "Lanche", items: ["Açaí: 200 g", "Morango: 100 g", "Neston: 20 g"] },
+          { name: "Jantar", items: ["Frango desfiado: 160 g", "Arroz cozido: 150 g", "Feijão: 80 g", "Salada: à vontade", "Azeite: 5 g"] },
+          { name: "Ceia (se houver fome)", items: ["Leite integral: 200 ml", "Fruta: à vontade"] }
+        ]
+      },
+      {
+        day: 14, type: "DESCANSO",
+        meals: [
+          { name: "Café da manhã", items: ["Leite integral: 250 ml", "Neston: 30 g", "Ovos: 2 unidades", "Pão: 60 g", "Queijo: 30 g", "Fruta: à vontade"] },
+          { name: "Almoço", items: ["Arroz cozido: 150 g", "Feijão: 100 g", "Peixe grelhado: 160 g", "Azeite: 5 g", "Salada: à vontade"] },
+          { name: "Lanche", items: ["Salada de frutas: 1 porção", "Iogurte natural: 170 g", "Neston: 20 g"] },
+          { name: "Jantar", items: ["Frango grelhado: 150 g", "Batata-doce cozida/assada: 180 g", "Salada: à vontade", "Azeite: 5 g"] },
+          { name: "Ceia (se houver fome)", items: ["Leite integral: 200 ml", "Fruta: à vontade"] }
+        ]
+      },
+      {
+        day: 15, type: "MUSCULAÇÃO",
+        meals: [
+          { name: "Café da manhã", items: ["Leite integral: 250 ml", "Neston: 30 g", "Ovos: 2 unidades", "Pão: 60 g", "Queijo: 30 g", "Fruta: à vontade"] },
+          { name: "Almoço", items: ["Arroz cozido: 150 g", "Feijão cozido: 100 g", "Frango grelhado: 160 g", "Azeite: 5 g", "Salada: à vontade"] },
+          { name: "Lanche", items: ["Açaí: 200 g", "Morango: 100 g", "Neston: 20 g"] },
+          { name: "Jantar", items: ["Carne bovina magra: 150 g", "Arroz cozido: 130 g", "Feijão: 80 g", "Salada: à vontade", "Azeite: 5 g"] },
+          { name: "Ceia (se houver fome)", items: ["Leite integral: 200 ml", "Fruta: à vontade"] }
+        ]
+      },
+      {
+        day: 16, type: "MUSCULAÇÃO",
+        meals: [
+          { name: "Café da manhã", items: ["Leite integral: 250 ml", "Neston: 30 g", "Ovos mexidos: 2 unidades", "Pão: 60 g", "Fruta: à vontade"] },
+          { name: "Almoço", items: ["Arroz cozido: 150 g", "Feijão: 100 g", "Peixe grelhado: 160 g", "Azeite: 5 g", "Salada: à vontade"] },
+          { name: "Lanche", items: ["Iogurte natural: 170 g", "Neston: 20 g", "Morango: 100 g", "Fruta: à vontade"] },
+          { name: "Jantar", items: ["Frango desfiado: 150 g", "Macarrão cozido: 150 g", "Molho de tomate: 80 g", "Salada: à vontade"] },
+          { name: "Ceia (se houver fome)", items: ["Leite integral: 200 ml", "Fruta: à vontade"] }
+        ]
+      },
+      {
+        day: 17, type: "MUSCULAÇÃO",
+        meals: [
+          { name: "Café da manhã", items: ["Leite integral: 250 ml", "Neston: 30 g", "Ovos: 2 unidades", "Pão: 60 g", "Queijo: 30 g", "Fruta: à vontade"] },
+          { name: "Almoço", items: ["Arroz cozido: 150 g", "Feijão: 100 g", "Carne bovina magra: 150 g", "Azeite: 5 g", "Salada: à vontade"] },
+          { name: "Lanche", items: ["Açaí: 200 g", "Morango: 100 g", "Neston: 20 g", "Fruta: à vontade"] },
+          { name: "Jantar", items: ["Frango grelhado: 150 g", "Mandioca cozida: 180 g", "Salada: à vontade", "Azeite: 5 g"] },
+          { name: "Ceia (se houver fome)", items: ["Leite integral: 200 ml", "Fruta: à vontade"] }
+        ]
+      },
+      {
+        day: 18, type: "MUSCULAÇÃO",
+        meals: [
+          { name: "Café da manhã", items: ["Leite integral: 250 ml", "Neston: 30 g", "Ovos mexidos: 2 unidades", "Pão: 60 g", "Queijo: 30 g", "Fruta: à vontade"] },
+          { name: "Almoço", items: ["Arroz cozido: 150 g", "Feijão: 100 g", "Frango grelhado: 160 g", "Azeite: 5 g", "Salada: à vontade"] },
+          { name: "Lanche", items: ["Iogurte natural: 170 g", "Neston: 20 g", "Morango: 100 g"] },
+          { name: "Jantar", items: ["Omelete: 3 ovos", "Batata assada: 200 g", "Salada: à vontade", "Azeite: 5 g"] },
+          { name: "Ceia (se houver fome)", items: ["Leite integral: 200 ml", "Fruta: à vontade"] }
+        ]
+      },
+      {
+        day: 19, type: "NATAÇÃO",
+        meals: [
+          { name: "Café da manhã", items: ["Leite integral: 250 ml", "Neston: 30 g", "Ovos: 2 unidades", "Pão: 60 g", "Queijo: 30 g", "Fruta: à vontade"] },
+          { name: "Almoço", items: ["Arroz cozido: 160 g", "Feijão: 100 g", "Frango grelhado: 160 g", "Azeite: 5 g", "Salada: à vontade"] },
+          { name: "Lanche (Antes da natação)", items: ["Iogurte natural: 170 g", "Neston: 20 g", "Fruta: à vontade"] },
+          { name: "Jantar (Depois da natação)", items: ["Carne bovina magra: 160 g", "Batata cozida/assada: 220 g", "Salada: à vontade", "Azeite: 5 g"] },
+          { name: "Ceia (se houver fome)", items: ["Leite integral: 200 ml", "Fruta: à vontade"] }
+        ]
+      },
+      {
+        day: 20, type: "NATAÇÃO",
+        meals: [
+          { name: "Café da manhã", items: ["Leite integral: 250 ml", "Neston: 30 g", "Ovos: 2 unidades", "Pão: 60 g", "Fruta: à vontade"] },
+          { name: "Almoço", items: ["Arroz cozido: 160 g", "Feijão: 100 g", "Peixe grelhado: 160 g", "Azeite: 5 g", "Salada: à vontade"] },
+          { name: "Lanche", items: ["Açaí: 200 g", "Morango: 100 g", "Neston: 20 g"] },
+          { name: "Jantar", items: ["Frango desfiado: 160 g", "Arroz cozido: 150 g", "Feijão: 80 g", "Salada: à vontade", "Azeite: 5 g"] },
+          { name: "Ceia (se houver fome)", items: ["Leite integral: 200 ml", "Fruta: à vontade"] }
+        ]
+      },
+      {
+        day: 21, type: "DESCANSO",
+        meals: [
+          { name: "Café da manhã", items: ["Leite integral: 250 ml", "Neston: 30 g", "Ovos: 2 unidades", "Pão: 60 g", "Queijo: 30 g", "Fruta: à vontade"] },
+          { name: "Almoço", items: ["Arroz cozido: 150 g", "Feijão: 100 g", "Frango assado/grelhado: 150 g", "Azeite: 5 g", "Salada: à vontade"] },
+          { name: "Lanche", items: ["Salada de frutas: 1 porção", "Iogurte natural: 170 g", "Neston: 20 g"] },
+          { name: "Jantar", items: ["Omelete: 3 ovos", "Mandioca cozida: 180 g", "Salada: à vontade", "Azeite: 5 g"] },
+          { name: "Ceia (se houver fome)", items: ["Leite integral: 200 ml", "Fruta: à vontade"] }
+        ]
+      },
+      {
+        day: 22, type: "MUSCULAÇÃO",
+        meals: [
+          { name: "Café da manhã", items: ["Leite integral: 250 ml", "Neston: 30 g", "Ovos: 2 unidades", "Pão: 60 g", "Queijo: 30 g", "Fruta: à vontade"] },
+          { name: "Almoço", items: ["Arroz cozido: 150 g", "Feijão cozido: 100 g", "Frango grelhado: 160 g", "Azeite: 5 g", "Salada: à vontade"] },
+          { name: "Lanche", items: ["Açaí: 200 g", "Morango: 100 g", "Neston: 20 g"] },
+          { name: "Jantar", items: ["Peixe grelhado: 160 g", "Batata assada: 200 g", "Salada: à vontade", "Azeite: 5 g"] },
+          { name: "Ceia (se houver fome)", items: ["Leite integral: 200 ml", "Fruta: à vontade"] }
+        ]
+      },
+      {
+        day: 23, type: "MUSCULAÇÃO",
+        meals: [
+          { name: "Café da manhã", items: ["Leite integral: 250 ml", "Neston: 30 g", "Ovos: 2 unidades", "Pão: 60 g", "Fruta: à vontade"] },
+          { name: "Almoço", items: ["Arroz cozido: 150 g", "Feijão: 100 g", "Carne bovina magra: 150 g", "Azeite: 5 g", "Salada: à vontade"] },
+          { name: "Lanche", items: ["Iogurte natural: 170 g", "Neston: 20 g", "Morango: 100 g", "Fruta: à vontade"] },
+          { name: "Jantar", items: ["Frango desfiado: 150 g", "Macarrão cozido: 150 g", "Molho de tomate: 80 g", "Salada: à vontade"] },
+          { name: "Ceia (se houver fome)", items: ["Leite integral: 200 ml", "Fruta: à vontade"] }
+        ]
+      },
+      {
+        day: 24, type: "MUSCULAÇÃO",
+        meals: [
+          { name: "Café da manhã", items: ["Leite integral: 250 ml", "Neston: 30 g", "Ovos: 2 unidades", "Pão: 60 g", "Queijo: 30 g", "Fruta: à vontade"] },
+          { name: "Almoço", items: ["Arroz cozido: 150 g", "Feijão: 100 g", "Peixe grelhado: 160 g", "Azeite: 5 g", "Salada: à vontade"] },
+          { name: "Lanche", items: ["Açaí: 200 g", "Morango: 100 g", "Neston: 20 g", "Fruta: à vontade"] },
+          { name: "Jantar", items: ["Frango grelhado: 150 g", "Mandioca cozida: 180 g", "Salada: à vontade", "Azeite: 5 g"] },
+          { name: "Ceia (se houver fome)", items: ["Leite integral: 200 ml", "Fruta: à vontade"] }
+        ]
+      },
+      {
+        day: 25, type: "MUSCULAÇÃO",
+        meals: [
+          { name: "Café da manhã", items: ["Leite integral: 250 ml", "Neston: 30 g", "Ovos mexidos: 2 unidades", "Pão: 60 g", "Queijo: 30 g", "Fruta: à vontade"] },
+          { name: "Almoço", items: ["Arroz cozido: 150 g", "Feijão: 100 g", "Frango grelhado: 160 g", "Azeite: 5 g", "Salada: à vontade"] },
+          { name: "Lanche", items: ["Iogurte natural: 170 g", "Neston: 20 g", "Morango: 100 g"] },
+          { name: "Jantar", items: ["Omelete: 3 ovos", "Arroz cozido: 130 g", "Feijão: 80 g", "Salada: à vontade", "Azeite: 5 g"] },
+          { name: "Ceia (se houver fome)", items: ["Leite integral: 200 ml", "Fruta: à vontade"] }
+        ]
+      },
+      {
+        day: 26, type: "NATAÇÃO",
+        meals: [
+          { name: "Café da manhã", items: ["Leite integral: 250 ml", "Neston: 30 g", "Ovos: 2 unidades", "Pão: 60 g", "Queijo: 30 g", "Fruta: à vontade"] },
+          { name: "Almoço", items: ["Arroz cozido: 160 g", "Feijão: 100 g", "Frango grelhado: 160 g", "Azeite: 5 g", "Salada: à vontade"] },
+          { name: "Lanche (Antes da natação)", items: ["Iogurte natural: 170 g", "Neston: 20 g", "Fruta: à vontade"] },
+          { name: "Jantar (Depois da natação)", items: ["Carne bovina magra: 160 g", "Batata: 220 g", "Salada: à vontade", "Azeite: 5 g"] },
+          { name: "Ceia (se houver fome)", items: ["Leite integral: 200 ml", "Fruta: à vontade"] }
+        ]
+      },
+      {
+        day: 27, type: "NATAÇÃO",
+        meals: [
+          { name: "Café da manhã", items: ["Leite integral: 250 ml", "Neston: 30 g", "Ovos: 2 unidades", "Pão: 60 g", "Fruta: à vontade"] },
+          { name: "Almoço", items: ["Arroz cozido: 160 g", "Feijão: 100 g", "Peixe grelhado: 160 g", "Azeite: 5 g", "Salada: à vontade"] },
+          { name: "Lanche", items: ["Açaí: 200 g", "Morango: 100 g", "Neston: 20 g"] },
+          { name: "Jantar", items: ["Frango desfiado: 160 g", "Arroz cozido: 150 g", "Feijão: 80 g", "Salada: à vontade", "Azeite: 5 g"] },
+          { name: "Ceia (se houver fome)", items: ["Leite integral: 200 ml", "Fruta: à vontade"] }
+        ]
+      },
+      {
+        day: 28, type: "DESCANSO",
+        meals: [
+          { name: "Café da manhã", items: ["Leite integral: 250 ml", "Neston: 30 g", "Ovos: 2 unidades", "Pão: 60 g", "Queijo: 30 g", "Fruta: à vontade"] },
+          { name: "Almoço", items: ["Arroz cozido: 150 g", "Feijão: 100 g", "Frango grelhado: 150 g", "Azeite: 5 g", "Salada: à vontade"] },
+          { name: "Lanche", items: ["Salada de frutas: 1 porção", "Iogurte natural: 170 g", "Neston: 20 g"] },
+          { name: "Jantar", items: ["Omelete: 3 ovos", "Batata-doce: 180 g", "Salada: à vontade", "Azeite: 5 g"] },
+          { name: "Ceia (se houver fome)", items: ["Leite integral: 200 ml", "Fruta: à vontade"] }
+        ]
+      },
+      {
+        day: 29, type: "NATAÇÃO",
+        meals: [
+          { name: "Café da manhã", items: ["Leite integral: 250 ml", "Neston: 30 g", "Ovos: 2 unidades", "Pão: 60 g", "Queijo: 30 g", "Fruta: à vontade"] },
+          { name: "Almoço", items: ["Arroz cozido: 160 g", "Feijão cozido: 100 g", "Frango grelhado: 160 g", "Azeite: 5 g", "Salada: à vontade"] },
+          { name: "Lanche (Antes da natação)", items: ["Iogurte natural: 170 g", "Neston: 20 g", "Morango: 100 g", "Fruta: à vontade"] },
+          { name: "Jantar (Depois da natação)", items: ["Peixe grelhado: 160 g", "Batata assada: 220 g", "Salada: à vontade", "Azeite: 5 g"] },
+          { name: "Ceia (se houver fome)", items: ["Leite integral: 200 ml", "Fruta: à vontade"] }
+        ]
+      },
+      {
+        day: 30, type: "ENCER.",
+        meals: [
+          { name: "Café da manhã", items: ["Leite integral: 250 ml", "Neston: 30 g", "Ovos: 2 unidades", "Pão: 60 g", "Queijo: 30 g", "Fruta: à vontade"] },
+          { name: "Almoço", items: ["Arroz cozido: 150 g", "Feijão cozido: 100 g", "Frango grelhado: 160 g", "Azeite: 5 g", "Salada: à vontade"] },
+          { name: "Lanche", items: ["Açaí: 200 g", "Morango: 100 g", "Neston: 20 g", "Fruta: à vontade"] },
+          { name: "Jantar", items: ["Carne bovina magra: 150 g", "Batata: 200 g", "Salada: à vontade", "Azeite: 5 g"] },
+          { name: "Ceia (se houver fome)", items: ["Leite integral: 200 ml", "Fruta: à vontade"] }
+        ]
+      }
+    ];
+
+    const shoppingLists = {
+      semana1: [
+        "Leite integral: aprox. 5 litros", "Neston: 1 lata/pacote grande", "Ovos: 30 unidades",
+        "Pão de forma / pão francês: 2 pacotes grandes", "Frutas variadas: à vontade",
+        "Arroz cozido (grão cru): 1 kg", "Feijão cozido (grão cru): 800 g", "Frango (peito/filé): 1,5 kg",
+        "Carne bovina magra: 500 g", "Peixe grelhado: 500 g", "Azeite de oliva: 1 unidade",
+        "Salada e verduras: variadas", "Açaí: 4 potes de 200g", "Morangos: 4 caixinhas", "Iogurte natural: 6 potes"
+      ],
+      semana2: [
+        "Leite integral: 5 litros", "Neston: 1 lata", "Ovos: 30 unidades", "Pão: 2 pacotes",
+        "Arroz: 1 kg", "Feijão: 800 g", "Frango: 1,5 kg", "Carne bovina: 500 g", "Peixe: 500 g",
+        "Macarrão: 1 pacote", "Molho de tomate: 2 sachês", "Mandioca: 1 kg", "Azeite, Salada, Açaí, Morangos, Iogurte"
+      ],
+      semana3: [
+        "Leite integral: 5 litros", "Neston: 1 lata", "Ovos: 30 unidades", "Pão: 2 pacotes",
+        "Arroz: 1 kg", "Feijão: 800 g", "Frango: 1,5 kg", "Carne bovina: 600 g", "Peixe: 500 g",
+        "Macarrão: 1 pac.", "Mandioca / Batata-doce: 1 kg", "Azeite, Salada, Açaí, Morangos, Iogurte"
+      ],
+      semana4: [
+        "Leite integral: 5 litros", "Neston: 1 lata", "Ovos: 30 unidades", "Pão: 2 pacotes",
+        "Arroz: 1 kg", "Feijão: 800 g", "Frango: 1,5 kg", "Carne bovina: 500 g", "Peixe: 500 g",
+        "Batata / Batata-doce / Mandioca: 1,5 kg", "Azeite, Salada, Açaí, Morangos, Iogurte"
+      ]
+    };
+
+    let state = {
+      isAuthenticated: false,
+      activeTab: 'diet',
+      progress: JSON.parse(localStorage.getItem('kess_diet_progress') || '{}'),
+      selectedDay: null,
+      showPwaBanner: /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase()) && !window.navigator.standalone
+    };
+
+    function setState(newState) {
+      state = { ...state, ...newState };
+      if (newState.progress) {
+        localStorage.setItem('kess_diet_progress', JSON.stringify(state.progress));
+      }
+      render();
+    }
+
+    function toggleMeal(dayNum, mealIndex) {
+      const dayProgress = state.progress[dayNum] || {};
+      const updatedDayProgress = { ...dayProgress, [mealIndex]: !dayProgress[mealIndex] };
+      const newProgress = { ...state.progress, [dayNum]: updatedDayProgress };
+      setState({ progress: newProgress });
+    }
+
+    function isDayCompleted(dayNum) {
+      const dayData = dietPlan.find(d => d.day === dayNum);
+      if (!dayData) return false;
+      const dayProgress = state.progress[dayNum] || {};
+      for (let i = 0; i < dayData.meals.length; i++) {
+        if (!dayProgress[i]) return false;
+      }
+      return true;
+    }
+
+    function render() {
+      const app = document.getElementById('app');
+
+      if (!state.isAuthenticated) {
+        app.innerHTML = `
+          <div class="min-h-screen bg-black flex flex-col items-center justify-center text-white p-6 font-sans">
+            <div class="w-full max-w-sm flex flex-col items-center">
+              <div class="w-24 h-24 bg-gray-900 rounded-3xl flex items-center justify-center mb-8 shadow-2xl border border-gray-800">
+                 <span class="text-4xl font-bold text-white">K</span>
+              </div>
+              <h1 class="text-3xl font-semibold mb-2 text-center">Dieta da Késs</h1>
+              <p class="text-gray-400 text-center mb-10">Faça login para acessar seus 30 dias de foco e consistência.</p>
+              
+              <button onclick="login()" class="w-full bg-white text-black font-medium py-3.5 px-4 rounded-full flex items-center justify-center gap-2 hover:bg-gray-100 transition active:scale-95 shadow-lg">
+                <span>Continuar com a Apple</span>
+              </button>
+              
+              <p class="text-xs text-gray-600 mt-8 text-center max-w-xs">
+                Ambiente seguro PWA. Seus dados ficam salvos localmente.
+              </p>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      const completedCount = dietPlan.filter(d => isDayCompleted(d.day)).length;
+      const progressPercent = Math.round((completedCount / dietPlan.length) * 100);
+
+      app.innerHTML = `
+        <div class="min-h-screen bg-[#f5f5f7] text-[#1d1d1f] font-sans pb-28">
+          
+          ${state.showPwaBanner ? `
+            <div class="bg-gray-900 text-white px-4 py-3 text-xs md:text-sm flex flex-col sm:flex-row items-center justify-between gap-2 shadow-md border-b border-gray-800">
+              <div class="flex items-center gap-2 text-center sm:text-left">
+                <span>📱 Instale no iPhone: toque em Compartilhar e depois em Adicionar à Tela de Início</span>
+              </div>
+              <button onclick="setState({showPwaBanner: false})" class="text-gray-400 hover:text-white underline text-xs">Dispensar</button>
+            </div>
+          ` : ''}
+
+          <header class="pt-10 pb-6 px-6 max-w-4xl mx-auto flex justify-between items-center">
+            <div>
+              <h1 class="text-3xl font-bold tracking-tight">Olá, Késs</h1>
+              <p class="text-gray-500 font-medium mt-1">Consistência acima de perfeição.</p>
+            </div>
+            <button onclick="setState({isAuthenticated: false})" class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300 transition shadow-sm font-bold text-gray-600">
+              K
+            </button>
+          </header>
+
+          <main class="px-6 max-w-4xl mx-auto">
+            
+            <div class="flex bg-gray-200/80 p-1.5 rounded-2xl mb-8 max-w-md mx-auto sm:mx-0">
+              <button onclick="setState({activeTab: 'diet'})" class="flex-1 py-2.5 px-4 rounded-xl text-sm font-semibold transition ${state.activeTab === 'diet' ? 'bg-white shadow-sm text-black' : 'text-gray-500'}">
+                🍽️ Plano Diário
+              </button>
+              <button onclick="setState({activeTab: 'shopping'})" class="flex-1 py-2.5 px-4 rounded-xl text-sm font-semibold transition ${state.activeTab === 'shopping' ? 'bg-white shadow-sm text-black' : 'text-gray-500'}">
+                🛒 Lista de Compras
+              </button>
+            </div>
+
+            <div class="bg-white rounded-3xl p-6 mb-8 shadow-sm border border-gray-100 flex items-center justify-between">
+              <div>
+                <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Progresso Geral</h3>
+                <p class="text-2xl font-bold mt-1">${completedCount} de ${dietPlan.length} dias concluídos</p>
+              </div>
+              <div class="text-2xl font-black text-black bg-gray-100 px-4 py-2 rounded-2xl">${progressPercent}%</div>
+            </div>
+
+            ${state.activeTab === 'diet' ? `
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                ${dietPlan.map(dayObj => {
+                  const completed = isDayCompleted(dayObj.day);
+                  return `
+                    <div onclick="openDay(${dayObj.day})" class="bg-white p-5 rounded-2xl border ${completed ? 'border-green-400 bg-green-50/20' : 'border-gray-100'} shadow-sm hover:shadow-md transition cursor-pointer flex flex-col justify-between">
+                      <div>
+                        <div class="flex justify-between items-center mb-2">
+                          <span class="text-xs font-bold px-2.5 py-1 rounded-full ${dayObj.type === 'MUSCULAÇÃO' ? 'bg-blue-100 text-blue-700' : dayObj.type === 'NATAÇÃO' ? 'bg-cyan-100 text-cyan-700' : 'bg-gray-100 text-gray-700'}">${dayObj.type}</span>
+                          ${completed ? '<span class="text-green-600 font-bold text-sm">✓ Concluído</span>' : ''}
+                        </div>
+                        <h4 class="text-lg font-bold">Dia ${dayObj.day}</h4>
+                        <p class="text-xs text-gray-500 mt-1">${dayObj.meals.length} refeições programadas</p>
+                      </div>
+                      <div class="mt-4 text-xs font-semibold text-blue-600 flex items-center gap-1">Ver refeições →</div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            ` : `
+              <div class="space-y-6">
+                ${Object.entries(shoppingLists).map(([week, items]) => `
+                  <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100">
+                    <h3 class="text-lg font-bold capitalize mb-4">${week.replace('semana', 'Semana ')}</h3>
+                    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      ${items.map(item => `<li class="text-sm text-gray-700 flex items-center gap-2">• ${item}</li>`).join('')}
+                    </ul>
+                  </div>
+                `).join('')}
+              </div>
+            `}
+
+          </main>
+
+          ${state.selectedDay !== null ? (() => {
+            const dayData = dietPlan.find(d => d.day === state.selectedDay);
+            const dayProgress = state.progress[state.selectedDay] || {};
+            return `
+              <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex justify-center items-end sm:items-center p-0 sm:p-4">
+                <div class="bg-white w-full max-w-xl max-h-[90vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl p-6 shadow-2xl">
+                  <div class="flex justify-between items-center mb-6 border-b pb-4">
+                    <div>
+                      <span class="text-xs font-bold px-2 py-0.5 rounded bg-gray-100 text-gray-700">${dayData.type}</span>
+                      <h2 class="text-2xl font-bold mt-1">Dia ${dayData.day}</h2>
+                    </div>
+                    <button onclick="setState({selectedDay: null})" class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center font-bold">✕</button>
+                  </div>
+
+                  <div class="space-y-6">
+                    ${dayData.meals.map((meal, mIndex) => {
+                      const isChecked = dayProgress[mIndex] || false;
+                      return `
+                        <div class="border border-gray-100 rounded-2xl p-4 bg-gray-50/50">
+                          <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-bold text-base">${meal.name}</h4>
+                            <label class="flex items-center gap-2 cursor-pointer text-sm font-semibold select-none">
+                              <input type="checkbox" ${isChecked ? 'checked' : ''} onchange="toggleMeal(${dayData.day}, ${mIndex})" class="w-5 h-5 rounded accent-black cursor-pointer">
+                              <span>Feito</span>
+                            </label>
+                          </div>
+                          <ul class="text-sm text-gray-600 space-y-1">
+                            ${meal.items.map(item => `<li>- ${item}</li>`).join('')}
+                          </ul>
+                        </div>
+                      `;
+                    }).join('')}
+                  </div>
+                </div>
+              </div>
+            `;
+          })() : ''}
+
+        </div>
+      `;
+    }
+
+    function login() {
+      setTimeout(() => {
+        setState({ isAuthenticated: true });
+      }, 500);
+    }
+
+    function openDay(dayNum) {
+      setState({ selectedDay: dayNum });
+    }
+
+    render();
+  </script>
+</body>
+</html>
